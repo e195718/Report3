@@ -1,11 +1,25 @@
 package jp.ac.uryukyu.ie.e195718;
 
+/**
+ * 生き物クラス
+ * Strring name ;//生き物の名前
+ * int hitPoint; //敵のHP
+ * int attack; //敵の攻撃力
+ * boolean dead; //敵の生死状態。true=死亡。
+ */
+
 public class LivingThing {
     private String name;
     private int hitPoint;
     private int attack;
     private boolean dead;
 
+    /**
+     * コンストラクタ。名前、最大HP、攻撃力を指定する。
+     * @param name モンスター名
+     * @param maximumHP モンスターのHP
+     * @param attack モンスターの攻撃力
+     */
     public LivingThing(String name, int maximumHP, int attack){
         this.name = name;
         this.hitPoint = maximumHP;
@@ -13,6 +27,10 @@ public class LivingThing {
         dead = false;
         System.out.printf("%sのHPは%d。攻撃力は%dです。\n", name, maximumHP, attack);
         }
+
+    /**
+     * それぞれのsetterとgetter
+     */
     public boolean isDead() {
         return dead;
     }
@@ -45,6 +63,11 @@ public class LivingThing {
         this.hitPoint = hitPoint;
     }
 
+    /**
+     * Heroへ攻撃するメソッド。
+     * attackに応じて乱数でダメージを算出し、hero.wounded()によりダメージ処理を実行。
+     * @param opponent 攻撃対象
+     */
     public void attack(LivingThing opponent) {
         if (!isDead()){
             int damage = (int) (Math.random() * attack);
@@ -52,7 +75,11 @@ public class LivingThing {
             opponent.wounded(damage);
         }
     }
-
+    /**
+     * 自身へ攻撃されたときのダメージ処理をするメソッド。
+     * 指定されたダメージを hitPoint から引き、死亡判定を行う。
+     * @param damage 受けたダメージ
+     */
     public void wounded(int damage){
         hitPoint -= damage;
         if(hitPoint < 0){
